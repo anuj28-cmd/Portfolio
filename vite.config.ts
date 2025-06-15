@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  base: '/Portfolio/', // Change this to your repository name if deploying to GitHub Pages
   plugins: [react()],
   resolve: {
     alias: {

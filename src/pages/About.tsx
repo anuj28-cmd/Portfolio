@@ -7,25 +7,26 @@ const About = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lavender-50 via-skyblue-50 to-peach-50 dark:from-charcoal-900 dark:via-charcoal-800 dark:to-charcoal-900 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-slate-50 to-navy-50 dark:from-navy-900 dark:via-navy-800 dark:to-navy-900 flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-2xl mx-auto px-4"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold text-charcoal-900 dark:text-white mb-6">
+      >        <h1 className="text-4xl md:text-6xl font-bold text-navy-900 dark:text-white mb-6">
           About{" "}
-          <span className="bg-gradient-to-r from-lavender-600 to-skyblue-500 bg-clip-text text-transparent">
-            Page
+          <span className="bg-gradient-to-r from-blue-500 to-navy-600 bg-clip-text text-transparent">
+            My Journey
           </span>
         </h1>
-        <p className="text-lg text-charcoal-600 dark:text-charcoal-300 mb-8">
-          This is a placeholder for the dedicated About page. The main About
-          section is available on the homepage.
+        <p className="text-lg text-navy-600 dark:text-navy-300 mb-8">
+          With a strong foundation in electronics engineering and a passion for software development,
+          I've built a unique career bridging hardware and software domains. My expertise spans circuit design,
+          PCB layout, web development, machine learning, and data engineering - creating integrated solutions
+          that leverage the best of both worlds.
         </p>
         <Button
           onClick={() => navigate("/")}
-          className="bg-gradient-to-r from-lavender-600 to-skyblue-500 hover:from-lavender-700 hover:to-skyblue-600 text-white"
+          className="bg-gradient-to-r from-blue-500 to-navy-600 hover:from-blue-600 hover:to-navy-700 text-white"
         >
           <ArrowLeft className="mr-2 w-4 h-4" />
           Back to Homepage
