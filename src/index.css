@@ -90,7 +90,28 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-charcoal-100 dark:bg-charcoal-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-lavender-400 dark:bg-lavender-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-lavender-500 dark:bg-lavender-500;
   }
 }
