@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useNavigate } from "react-router-dom";
 
 // Animation wrapper component
 const AnimatedSection = ({
@@ -59,6 +60,7 @@ const AnimatedSection = ({
 // Navbar Component
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,8 +80,8 @@ const Navbar = () => {
       const section = document.querySelector(href);
       section?.scrollIntoView({ behavior: "smooth" });
     } else {
-      // Navigate to the route without using the base path (handled by BrowserRouter)
-      window.location.href = href;
+      // Use React Router's navigate for routing
+      navigate(href);
     }
   };
 
@@ -98,9 +100,9 @@ const Navbar = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-navy-700 bg-clip-text text-transparent"
+            className="text-2xl font-bold text-blue-600 dark:text-blue-400"
           >
-            Anuj
+            Anuj Udapure
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -159,11 +161,11 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >            Hi, I'm{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-navy-700 bg-clip-text text-transparent">
+            <span className="text-blue-600 dark:text-blue-400">
               Anuj
             </span>
             <br />I create{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-slate-600 bg-clip-text text-transparent">
+            <span className="text-blue-500 dark:text-blue-400">
               hardware & software solutions
             </span>
           </motion.h1>          <motion.p
@@ -184,7 +186,7 @@ const HeroSection = () => {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-navy-700 hover:from-blue-700 hover:to-navy-800 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={() =>
                 document
                   .querySelector("#projects")
@@ -209,22 +211,28 @@ const HeroSection = () => {
               <Mail className="ml-2 w-4 h-4" />
             </Button>
           </motion.div>
-
+          {/* Social Icons */}
           <motion.div
             className="flex items-center justify-center space-x-6 mt-12 mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            {[Github, Linkedin, Twitter].map((Icon, index) => (
+            {[
+              { Icon: Github, href: "https://github.com/anuj28-cmd" },
+              { Icon: Linkedin, href: "https://www.linkedin.com/in/anuj-udapure/" },
+              { Icon: Twitter, href: "https://twitter.com/anujudapure" },
+            ].map((social, index) => (
               <motion.a
                 key={index}
-                href="#"
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
                 className="p-3 bg-white/50 dark:bg-navy-800/50 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                <Icon className="w-6 h-6 text-navy-700 dark:text-navy-300" />
+                <social.Icon className="w-6 h-6 text-navy-700 dark:text-navy-300" />
               </motion.a>
             ))}
           </motion.div>
@@ -251,7 +259,7 @@ const AboutSection = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">
               About{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-slate-600 bg-clip-text text-transparent">
+              <span className="text-blue-500 dark:text-blue-400">
                 Me
               </span>
             </h2>
@@ -324,24 +332,12 @@ const AboutSection = () => {
 
 // Skills Section
 const SkillsSection = () => {  const skills = [
-    { name: "Circuit Design", level: 90, color: "from-blue-500 to-blue-600" },
-    {
-      name: "PCB Layout",
-      level: 85,
-      color: "from-navy-500 to-navy-600",
-    },
-    { name: "React/TypeScript", level: 88, color: "from-slate-500 to-slate-600" },
-    { name: "Machine Learning", level: 80, color: "from-steel-500 to-steel-600" },
-    {
-      name: "Embedded Systems",
-      level: 87,
-      color: "from-blue-500 to-navy-600",
-    },
-    {
-      name: "Data Engineering",
-      level: 82,
-      color: "from-slate-500 to-blue-600",
-    },
+    { name: "Circuit Design", level: 90, color: "blue-500" },
+    { name: "PCB Layout", level: 85, color: "blue-500" },
+    { name: "React/TypeScript", level: 88, color: "blue-500" },
+    { name: "Machine Learning", level: 80, color: "blue-500" },
+    { name: "Embedded Systems", level: 87, color: "blue-500" },
+    { name: "Data Engineering", level: 82, color: "blue-500" },
   ];
 
   return (
@@ -351,9 +347,10 @@ const SkillsSection = () => {  const skills = [
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <div className="text-center mb-16">            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">
               Technical{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-slate-600 bg-clip-text text-transparent">
+              <span className="text-blue-500 dark:text-blue-400">
                 Expertise
               </span>
             </h2>
@@ -362,31 +359,60 @@ const SkillsSection = () => {  const skills = [
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {skills.map((skill, index) => (
               <motion.div
                 key={skill.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 bg-white/70 dark:bg-navy-800/70 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-navy-700 shadow-lg"
+                className="flex flex-col items-center p-6 bg-white/70 dark:bg-navy-800/70 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-navy-700 shadow-lg"
               >
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-lg font-semibold text-navy-900 dark:text-white">
-                    {skill.name}
-                  </h3>
-                  <span className="text-navy-600 dark:text-navy-300">
-                    {skill.level}%
-                  </span>
+                <div className="relative w-28 h-28 mb-4">
+                  {/* Background Circle */}
+                  <div className="w-full h-full rounded-full bg-slate-200 dark:bg-navy-700 absolute"></div>
+                  
+                  {/* Colored Background based on skill level */}
+                  <div className="w-full h-full rounded-full absolute overflow-hidden">                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 bg-blue-500/20"
+                      initial={{ height: "0%" }}
+                      whileInView={{ height: `${skill.level}%` }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                    />
+                  </div>                    {/* Progress Circle */}
+                    <svg className="w-full h-full absolute top-0 left-0 -rotate-90">                      <defs>
+                        <linearGradient id={`gradient-${skill.name.replace(/\s+/g, '')}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="1" />
+                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.6" />
+                        </linearGradient>
+                      </defs>
+                      <motion.circle
+                        cx="50%"
+                        cy="50%"
+                        r="42.5%"
+                        stroke={`url(#gradient-${skill.name.replace(/\s+/g, '')})`}
+                        strokeWidth="8%"
+                      fill="transparent"
+                      strokeLinecap="round"
+                      strokeDasharray="283"
+                      initial={{ strokeDashoffset: 283 }}
+                      whileInView={{ 
+                        strokeDashoffset: 283 - (283 * skill.level / 100)
+                      }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                    />
+                  </svg>
+                  
+                  {/* Inner Circle with Percentage */}
+                  <div className="absolute inset-[15%] rounded-full bg-white dark:bg-navy-800 flex items-center justify-center shadow-inner">                    <span className="text-xl font-bold text-blue-500">
+                      {skill.level}<span className="text-sm">%</span>
+                    </span>
+                  </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-navy-700 rounded-full h-3">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className={`h-3 rounded-full bg-gradient-to-r ${skill.color}`}
-                  />
-                </div>
+                
+                <h3 className="text-lg font-semibold text-navy-900 dark:text-white text-center">
+                  {skill.name}
+                </h3>
               </motion.div>
             ))}
           </div>
@@ -429,7 +455,7 @@ const ProjectsSection = () => {  const projects = [
         <AnimatedSection>
           <div className="text-center mb-16">            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">
               Featured{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-slate-600 bg-clip-text text-transparent">
+              <span className="text-blue-500 dark:text-blue-400">
                 Projects
               </span>
             </h2>
@@ -444,7 +470,7 @@ const ProjectsSection = () => {  const projects = [
                 key={project.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
+                // transition={{ delay: index * 0.2 }}
                 whileHover={{ y: -10 , boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                  }}
                 whileTap={{ scale: 0.98 }}
@@ -481,14 +507,13 @@ const ProjectsSection = () => {  const projects = [
                         </span>
                       ))}
                     </div>
-                    <div className="flex space-x-2">
-                      <Button
-                        size="sm"
-                        className="bg-gradient-to-r from-blue-500 to-navy-600 text-white"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-0" />
-                        Demo
-                      </Button>
+                    <div className="flex space-x-2">                <Button
+                          size="sm"
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-0" />
+                          Demo
+                        </Button>
                       <Button size="sm" variant="outline">
                         <Github className="w-4 h-4 mr-1" />
                         Code
@@ -517,7 +542,7 @@ const ContactSection = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">
               Let's{" "}
-              <span className="bg-gradient-to-r from-blue-500 to-slate-600 bg-clip-text text-transparent">
+              <span className="text-blue-500 dark:text-blue-400">
                 Connect
               </span>
             </h2>
@@ -529,8 +554,7 @@ const ContactSection = () => {
           <div className="max-w-2xl mx-auto">
             <Card className="p-8 bg-white/70 dark:bg-navy-800/70 backdrop-blur-sm border-0 shadow-xl">
               <CardContent className="p-0 text-center">
-                <div className="mb-8">
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-navy-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="mb-8">                  <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Mail className="w-10 h-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-navy-900 dark:text-white mb-2">
@@ -542,11 +566,10 @@ const ContactSection = () => {
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Button
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">                  <Button
                     size="lg"
-                    className="bg-gradient-to-r from-blue-500 to-navy-600 hover:from-blue-600 hover:to-navy-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                  >                    <Mail className="mr-2 w-4 h-4" />
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                  ><Mail className="mr-2 w-4 h-4" />
                     anuj.udapure22@vit.edu
                   </Button>
 
